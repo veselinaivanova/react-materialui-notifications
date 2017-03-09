@@ -129,7 +129,7 @@ export default class ReactMaterialUiNotifications extends Component {
      * get the props we want to forward to the notification
      */
     getProps = (props) => {
-        let {children, rootStyle, maxNotifications, ...pProps} = this.props
+        let {children, rootStyle, maxNotifications, ...pProps} = this.props;
         return Object.assign(props, pProps)
     }
 
@@ -155,6 +155,10 @@ class Notification extends Component {
      * these props are named after https://material.google.com/patterns/notifications.html#notifications-content
      */
     static propTypes = {
+        /**
+         * notification id
+         */
+        id: PropTypes.any,
         /**
          * additional text for display
          */
@@ -219,7 +223,11 @@ class Notification extends Component {
         /**
          * This number represents the zDepth of the paper shadow covering the message.
          */
-        zDepth: propTypes.zDepth
+        zDepth: propTypes.zDepth,
+        /**
+         * onClose event.
+         */
+        onClose: PropTypes.func,
     }
 
     /**
@@ -275,7 +283,8 @@ class Notification extends Component {
      */
     onCloseNotification = () => {
         clearTimeout(this.autoHideTimeout)
-        this.setState({open: false})
+        this.setState({open: false});
+        if (this.props.onClose) this.props.onClose({notification: {id: this.props.id}});
     }
 
     /**
