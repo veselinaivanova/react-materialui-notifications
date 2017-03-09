@@ -251,7 +251,8 @@ class Notification extends Component {
          */
         if (this.props.autoHide) {
             this.autoHideTimeout = setTimeout(() => {
-                this.setState({open: false})
+                this.setState({open: false});
+                if (this.props.onClose) this.props.onClose({notification: {id: this.props.id}});
             }, this.props.autoHide)
         }
     }
