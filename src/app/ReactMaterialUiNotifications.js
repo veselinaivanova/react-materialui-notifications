@@ -455,7 +455,7 @@ class Notification extends Component {
          * show icon button if on desktop
          */
         if (this.props.desktop) {
-            desktopClose =
+            desktopClose = <span id="notification_close_button">
                 <IconButton
                     style={iconButtonStyle}
                     iconStyle={iconStyle}
@@ -463,6 +463,7 @@ class Notification extends Component {
                 >
                     <Close />
                 </IconButton>
+            </span>
         }
 
         /**
@@ -482,27 +483,29 @@ class Notification extends Component {
                 transitionEnterTimeout={this.props.transitionEnterTimeout ? this.props.transitionEnterTimeout : 0}
                 transitionLeaveTimeout={this.props.transitionLeaveTimeout ? this.props.transitionLeaveTimeout : 0}
             >
-                <Paper
-                    key={this.state.open}
-                    style={this.getStyle()}
-                    zDepth={this.props.zDepth}
-                    transitionEnabled={false}
-                >
-                    <List style={listStyle}>
-                        <ListItem
-                            primaryText={this.props.title}
-                            secondaryText={secondaryText}
-                            secondaryTextLines={this.props.additionalLines}
-                            leftIcon={this.getNotificationIcon()}
-                            insetChildren={true}
-                            rightIconButton={desktopClose}
-                            innerDivStyle={listItemStyle}
-                        />
-                        {timestampEl}
-                    </List>
-                    {expandedAction}
-                    {expandedText}
-                </Paper>
+                <div id={this.props.id}>
+                    <Paper
+                        key={this.state.open}
+                        style={this.getStyle()}
+                        zDepth={this.props.zDepth}
+                        transitionEnabled={false}
+                    >
+                        <List style={listStyle}>
+                            <ListItem
+                                primaryText={this.props.title}
+                                secondaryText={secondaryText}
+                                secondaryTextLines={this.props.additionalLines}
+                                leftIcon={this.getNotificationIcon()}
+                                insetChildren={true}
+                                rightIconButton={desktopClose}
+                                innerDivStyle={listItemStyle}
+                            />
+                            {timestampEl}
+                        </List>
+                        {expandedAction}
+                        {expandedText}
+                    </Paper>
+                </div>
             </ReactCSSTransitionGroup>
         )
     }
